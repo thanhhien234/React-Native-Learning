@@ -35,6 +35,14 @@ export default function App() {
         keyExtractor={(item) => item.id.toString()}  // assuming each item has an 'id' property
         ItemSeparatorComponent={() => <View style={{height: 10}} /> }  // add view as a space between items
         ListEmptyComponent={() => <Text>No items to display</Text>}   // if data = {[]} then this will be displayed
+        
+        ListHeaderComponent={
+          <Text style={styles.headerText}>Pokemon List</Text>
+        }
+        ListFooterComponent={
+          <Text style={styles.footerText}>End of list</Text>
+        }
+        
       />
     </SafeAreaView>
   );
