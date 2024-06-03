@@ -4,9 +4,10 @@ import { StyleSheet, SafeAreaView, StatusBar, View, FlatList, Text, ActivityIndi
 export default function App() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
-  const fetchData = async () => {
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=20');
+  const fetchData = async (limit = 10) => {
+    const response = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=${limit}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -39,6 +40,12 @@ export default function App() {
             </View>
           )}
           ListEmptyComponent={<Text>No data found</Text>}
+          refreshing={refreshing}
+          onRefresh={() => {
+            setRefreshing(true);
+            fetchData(30);
+            setRefreshing(false);
+          }}
         />
       </View>
       
